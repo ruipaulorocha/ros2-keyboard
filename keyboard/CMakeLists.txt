@@ -35,6 +35,7 @@ target_link_libraries(keyboard
   ${LIBS}
 )
 
+#ament_python_install_package(${PROJECT_NAME})
 
 install(TARGETS keyboard
   DESTINATION lib/${PROJECT_NAME})
@@ -43,6 +44,18 @@ install(
     PROGRAMS
         scripts/keyboard_to_joy.py
     DESTINATION lib/${PROJECT_NAME}
+)
+
+# install the config directory
+install(DIRECTORY
+  config
+  DESTINATION share/${PROJECT_NAME}/
+)
+
+# install the launch directory
+install(DIRECTORY
+  launch
+  DESTINATION share/${PROJECT_NAME}/
 )
 
 if(BUILD_TESTING)

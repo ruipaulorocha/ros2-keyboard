@@ -1,19 +1,23 @@
 # ros2-keyboard
 
-This node uses the SDL library to grab keypresses.
+This package uses the SDL library to grab keypresses.
 To do so, it opens a window where input is received.
-This window needs to becurrently focused, otherwise this node will not receive any key presses.
+This window needs to be currently focused, otherwise this node will not receive any key presses.
+The package was forked from [this GitHub repository](https://github.com/cmower/ros2-keyboard/tree/master) and tested successfully by Rui P. Rocha in ROS2 Humble.
 
 # Install
 
 1. Create a new workspace.
-2. `$ cd /path/to/your_ws/src`
+2. `cd /path/to/your_ws/src`
 3. Clone this repository
-  - (ssh) `$ git clone git@github.com:cmower/ros2-keyboard.git`
-  - (https) `$ git clone https://github.com/cmower/ros2-keyboard.git`
+  - (ssh) `git clone git@github.com:cmower/ros2-keyboard.git`
+  - (https) `git clone https://github.com/cmower/ros2-keyboard.git`
 4. Install SDL 1.2 with the command `sudo apt install libsdl1.2-dev`.
-5. `$ cd /path/to/your_ws`
-6. `$ colcon build`
+5. `cd /path/to/your_ws`
+6. Install dependencies because this package depends on SDL 1.2 library
+
+  `rosdep install -i --from-path src --rosdistro humble --ignore-src -y`
+6. `colcon build --symlink-install`
 
 # Nodes
 
@@ -39,14 +43,21 @@ Converts keyboard events to a joy message.
 
 ### Example:
 
-In one terminal, start the `keyboard` node.
+#### Launch file
+in one terminal, launch the two nodes.
+```bash
+ros2 launch keyboard keyboard_to_joy.launch.py
 ```
-$ ros2 run keyboard keyboard
+
+#### Running separetely the two nodes
+In one terminal, start the `keyboard` node.
+```bash
+ros2 run keyboard keyboard
 ```
 
 In a second terminal, start the `keyboard_to_joy.py` node.
-```
-$ ros2 run keyboard keyboard_to_joy.py --ros-args -p config_file_name:=/path/to/keyboard/config/example_config.yaml
+```bash
+ros2 run keyboard keyboard_to_joy.py --ros-args -p config_file_name:=/path/to/keyboard/config/example_config.yaml
 ```
 
-Remember to replace `/path/to` with the path to where you cloned the `keyboard` repository.
+Remember to replace `/path/to` with the path to where the `yaml` is located in your file system.
