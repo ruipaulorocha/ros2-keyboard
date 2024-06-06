@@ -16,7 +16,7 @@ def generate_launch_description():
     # declare launch arguments
     config_file_arg = DeclareLaunchArgument(
         'config_file',
-        default_value=TextSubstitution(text =  'example_config'),
+        default_value=TextSubstitution(text =  'config'),
         description='Keyboard configuration file without yaml extension'
         )
 
