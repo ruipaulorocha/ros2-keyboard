@@ -16,14 +16,13 @@ def generate_launch_description():
     # declare launch arguments
     config_file_arg = DeclareLaunchArgument(
         'config_file',
-        default_value=TextSubstitution(text =  'config'),
-        description='Keyboard configuration file without yaml extension'
+        default_value=TextSubstitution(text =  os.path.join(this_pkg_directory, 'config', 'example_config.yaml')),
+        description='Absolute path to configuration file including .yaml extension'
         )
 
     # return the path to the keyboard config file
     def config_path(context):
-        file = os.path.join(this_pkg_directory, 'config',
-             context.launch_configurations['config_file'] + '.yaml')
+        file = os.path.join(context.launch_configurations['config_file'])
         return [SetLaunchConfiguration('config_path', file)]
 
     config_path_fn = OpaqueFunction(function = config_path)
