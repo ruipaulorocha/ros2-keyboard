@@ -22,7 +22,7 @@ def generate_launch_description():
 
     # return the path to the keyboard config file
     def config_path(context):
-        file = os.path.join(context.launch_configurations['config_file'])
+        file = context.launch_configurations['config_file']
         return [SetLaunchConfiguration('config_path', file)]
 
     config_path_fn = OpaqueFunction(function = config_path)
